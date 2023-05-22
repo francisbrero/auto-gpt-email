@@ -24,6 +24,7 @@ InboxSDK.load(1, sdkKey).then(function (sdk) {
           user_input: prompt_text,
           message: message
         };
+        // console.log(data);
         // Send the data to the background.js file to run the API call
         chrome.runtime.sendMessage({message: 'sendApiCall', data: JSON.stringify(data)});
         
@@ -37,11 +38,24 @@ InboxSDK.load(1, sdkKey).then(function (sdk) {
             console.log("success");
           }
           else if (request.message == "API Response") {
-            // Create a new email reponse and add the request.data as a reply in the body
-            // For now we require there be an open ComposeView
-            sdk.Compose.registerComposeViewHandler(function(composeView){
-              composeView.setBodyText(JSON.stringify(request.data));
+            // display the response in an alert
+            // get the draft from the data
+            const response = JSON.parse(request.data);
+            const draft = JSON.stringify(response.draft);
+            const clean_draft = draft.replaceAll(/\\n/g, "\n").replaceAll('"','');
+            // console.log(clean_draft);
+            navigator.clipboard.writeText(clean_draft)
+            .then(() => {
+              alert("Answer has been copied to clipboard");
+            })
+            .catch(() => {
+              alert("something went wrong");
             });
+            // Create a new email reponse and add the request.data as a reply in the body => for now we don't want to deal with formatting
+            // For now we require there be an open ComposeView
+            // sdk.Compose.registerComposeViewHandler(function(composeView){
+            //   composeView.setBodyHTML(clean_draft);
+            // });
             return true;
           }
           return true;

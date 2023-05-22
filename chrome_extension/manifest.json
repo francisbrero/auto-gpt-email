@@ -1,7 +1,7 @@
 {
   "name": "Gmail Automation",
   "description": "Use AI to automate Gmail and Inbox",
-  "version": "0.1.20",
+  "version": "0.1.33",
   "content_scripts": [
     {
       "matches": [
@@ -23,7 +23,8 @@
   ],
   "icons": {
     "16": "static/icon16.png",
-    "32": "static/icon32.png"
+    "32": "static/icon32.png",
+    "256": "favicon.ico"
   },
-  "manifest_version": 3
+  "manifest_version": 2
 }

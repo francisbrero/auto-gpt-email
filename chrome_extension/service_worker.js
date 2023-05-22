@@ -28,8 +28,8 @@ function send(text) {
 
 
 async function sendApiCall(data) {
-    send("loading");
-    const response = await fetch('https://82ba-73-158-184-215.ngrok.io/webhook', {
+    // send("loading");
+    const response = await fetch('https://775b-73-158-184-215.ngrok.io/webhook', {
     method: 'POST',
     body: data,
     headers: {
@@ -37,6 +37,6 @@ async function sendApiCall(data) {
     }
   });
     const res = await response.json();
-    console.log("response :" + res);
+    // console.log("response :" + res);
     chrome.tabs.sendMessage(active_tab_id, { message: 'API Response', data: JSON.stringify(res) })
 };
